@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BusinessManager
 {
-    class OrderManager
+    public class OrderManager
     {
     }
 }
