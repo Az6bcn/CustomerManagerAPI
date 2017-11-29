@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagerAPI", "CustomerManagerAPI\CustomerManagerAPI.csproj", "{A7F6FA55-EC7B-43AF-AF61-ED0FAFEF239A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerManagerAPI", "CustomerManagerAPI\CustomerManagerAPI.csproj", "{A7F6FA55-EC7B-43AF-AF61-ED0FAFEF239A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositories\Repositories.csproj", "{DC8AC22F-1710-441D-BEBD-B0E391EDDF13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{DC8AC22F-1710-441D-BEBD-B0E391EDDF13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessManager", "BusinessManager\BusinessManager.csproj", "{6C5D8FCB-D444-4D19-B22A-5C5815EB6750}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessManager", "BusinessManager\BusinessManager.csproj", "{6C5D8FCB-D444-4D19-B22A-5C5815EB6750}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitOfWork", "UnitOfWork\UnitOfWork.csproj", "{62C20BE6-AEF3-43A5-8717-EFF94A399023}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UoW", "UnitOfWork\UoW.csproj", "{62C20BE6-AEF3-43A5-8717-EFF94A399023}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{16EF832B-D50F-434D-A01C-07DE56664DDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{16EF832B-D50F-434D-A01C-07DE56664DDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthJWT", "AuthJWT\AuthJWT.csproj", "{125DA43A-AF48-45A2-8EE4-24870D925BBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthJWT", "AuthJWT\AuthJWT.csproj", "{125DA43A-AF48-45A2-8EE4-24870D925BBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Model;
 using Microsoft.EntityFrameworkCore;
 using CustomerManagerAPI.Models;
@@ -18,6 +13,9 @@ using System.Text;
 using AuthJWT.AuthJWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Swashbuckle.AspNetCore.Swagger;
+using UoW;
+using Repositories;
+using Newtonsoft.Json;
 
 namespace CustomerManagerAPI
 {
@@ -36,6 +34,14 @@ namespace CustomerManagerAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            // Inject my UnitOf Service
+            services.AddTransient<UnitOfWork, UnitOfWork>(); // donde declaran UnitOfWork ---> al usarlo invoke instance of RegisterManager
+
+            //Inject my Repositories (Ascopped: creates just one instance of the repository, for every htttp request we create jst one instance)
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+
             //Register EF Core Context with dependency injection
             services.AddDbContext<DummyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                 options2 => options2.MigrationsAssembly("CustomerManagerAPI")));
@@ -44,12 +50,16 @@ namespace CustomerManagerAPI
                 options2 => options2.MigrationsAssembly("CustomerManagerAPI")));
 
 
-            // Inject my UnitOf Service
-            services.AddTransient<RegisterManager, RegisterManager>(); 
+            // Inject my Managers Service
+            services.AddTransient<RegisterManager, RegisterManager>();  // donde usan RegisterManager ---> invoke instance of RegisterManager
             services.AddTransient<AccountManager, AccountManager>();
+            services.AddTransient<CustomerManager, CustomerManager>();
+            services.AddTransient<AccountManager, AccountManager>();
+            services.AddTransient<OrderManager, OrderManager>();
+            services.AddTransient<ProductManager, ProductManager>();
 
             // Inject IJwtFactory Service
-            services.AddSingleton<IJWFactory, JWTFactory>();
+            services.AddSingleton<IJWFactory, JWTFactory>(); // donde acceden/llaman/usan IJWTFactory ---> invoke instance of JWTFactory
 
             services.AddIdentity<AppUser, IdentityRole>
               (options =>
@@ -112,9 +122,9 @@ namespace CustomerManagerAPI
             services.AddAuthorization(options =>
             {
                 CustomClaimTypes c = new CustomClaimTypes();
-                options.AddPolicy("GeneralManager", policy => policy.RequireClaim("GeneralManager", "GeneralManager"));
-                options.AddPolicy("SectionManager", policy => policy.RequireClaim("SectionManager", "SectionManager"));
-                options.AddPolicy("ProductsManager", policy => policy.RequireClaim("ProductsManager", "ProductsManager"));
+                options.AddPolicy("GeneralManager", policy => policy.RequireClaim("Role", "GeneralManager"));
+                options.AddPolicy("SectionManager", policy => policy.RequireClaim("Role", "SectionManager"));
+                options.AddPolicy("ProductsManager", policy => policy.RequireClaim("Role", "ProductsManager"));
             }); /* Adds a policy named 'GeneralManager', GeneralManager policy checks for the presence of an "GeneralManager" claimType,
             and claimValue  on the incoming token payload  with value of "GeneralManager".
                 We then apply the policy using the Policy property on the AuthorizeAttribute attribute in our Controller to specify the policy name; 
@@ -139,6 +149,13 @@ namespace CustomerManagerAPI
                 // Creates a Swagger doc named v1
                 config.SwaggerDoc("v1", new Info { Title = "CustomerManagerAPI", Version = "v1" });
             });
+
+            // https://stackoverflow.com/questions/13510204/json-net-self-referencing-loop-detected
+            // Prevents web api from return jst only the first element of a list or IEnumerable
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+
 
             services.AddMvc();
         }

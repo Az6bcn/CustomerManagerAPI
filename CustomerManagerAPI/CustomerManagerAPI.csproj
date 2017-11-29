@@ -28,6 +28,8 @@
     <ProjectReference Include="..\AuthJWT\AuthJWT.csproj" />
     <ProjectReference Include="..\BusinessManager\BusinessManager.csproj" />
     <ProjectReference Include="..\Model\Model.csproj" />
+    <ProjectReference Include="..\Repositories\Repositories.csproj" />
+    <ProjectReference Include="..\UnitOfWork\UoW.csproj" />
   </ItemGroup>
 
 </Project>

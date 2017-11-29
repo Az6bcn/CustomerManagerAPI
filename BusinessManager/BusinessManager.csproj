@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AuthJWT\AuthJWT.csproj" />
     <ProjectReference Include="..\Model\Model.csproj" />
+    <ProjectReference Include="..\UnitOfWork\UoW.csproj" />
   </ItemGroup>
 
 </Project>
