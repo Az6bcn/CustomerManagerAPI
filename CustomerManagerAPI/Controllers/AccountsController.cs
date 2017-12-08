@@ -13,11 +13,13 @@ using Newtonsoft.Json;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using Model.Models;
+using CustomerManagerAPI.ExceptionFilter;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CustomerManagerAPI.Controllers
 {
+    [CustomExceptionFilter]
     [Route("api/[controller]")]
     public class AccountsController : Controller
     {
@@ -55,7 +57,7 @@ namespace CustomerManagerAPI.Controllers
 
             var response = await _manager.RegistrationAddRoleAndClaims(model);
 
-            return new OkResult();
+            return Ok(response);
         }
 
 

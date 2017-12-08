@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace BusinessManager
 {
+
     public class RegisterManager
     {
         // ASPIdentity context
@@ -57,7 +58,7 @@ namespace BusinessManager
             catch (Exception e)
             {
 
-                throw new Exception(e.Message);
+                throw new Exception("Duplicated User");
             }
 
 
@@ -76,7 +77,8 @@ namespace BusinessManager
                 user = await _userManager.FindByEmailAsync(model.Email);
             }
 
-            
+            if(!result.Succeeded) { throw new Exception("Duplicated User"); }
+
             return user;
         }
 
