@@ -28,7 +28,7 @@ namespace CustomerManagerAPI.Controllers
        
         public readonly RegisterManager _manager;
         private readonly AccountManager _accountManager;
-        private dynamic json;
+        private dynamic jsonToken;
 
         public AccountsController(RegisterManager manager, AccountManager accountManager)
         {
@@ -73,10 +73,15 @@ namespace CustomerManagerAPI.Controllers
             if (isUserLoggedIn) {
              var identity = await _accountManager.GetFactoryTogenerateTokenWithClaims(credentials);
 
-             json = JsonConvert.SerializeObject(identity, _serializerSettings);
+                jsonToken = JsonConvert.SerializeObject(identity, _serializerSettings);
+            }
+            else
+            {
+                return new BadRequestObjectResult(new Error { ErrorMessage = "Username or Password incorrect" });
+           
             }
             
-            return new OkObjectResult(json);
+            return new OkObjectResult(jsonToken);
         }
 
 

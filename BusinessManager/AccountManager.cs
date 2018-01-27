@@ -42,7 +42,9 @@ namespace BusinessManager
                 // verify the associated password
              return (await _userManager.CheckPasswordAsync(userToLogin, userCredentials.Password)) ? true : false;
             }
-            return false;
+
+            // si llega hasta aqui ----> ha habido un error!.
+            throw new Exception("User is not registered. Please Register to Log-in");
         }
 
 

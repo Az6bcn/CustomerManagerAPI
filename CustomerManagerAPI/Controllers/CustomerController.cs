@@ -25,7 +25,7 @@ namespace CustomerManagerAPI.Controllers
         /// Gets the list of all customers
         /// </summary>
         /// <returns></returns>
-        [Route("allcustomers")] //--> GET api/customer/allcustomers
+        [Route("allcustomers")] //--> GET http://localhost:port/api/customer/allcustomers
         [HttpGet]
         [ProducesResponseType(typeof(Customer), 201)] //Specifies the type of response and the status code. --> So that Swagger can Show and Document the 2 status codes.
         [ProducesResponseType(typeof(Customer), 400)]
@@ -37,7 +37,7 @@ namespace CustomerManagerAPI.Controllers
 
 
 
-        [Route("allcustomersorder")]
+        [Route("allcustomersorder")] // GET http://localhost:port/api/customer/allcustomersorder
         [HttpGet]
         [ProducesResponseType(typeof(Customer), 201)] 
         [ProducesResponseType(typeof(Customer), 400)]
@@ -54,7 +54,7 @@ namespace CustomerManagerAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("{id:int}")] //--> GET api/customer/id
+        [Route("{id:int}")] //--> GET http://localhost:port/api/customer/id
         [HttpGet]
         public string Get(int id)
         {
@@ -74,7 +74,7 @@ namespace CustomerManagerAPI.Controllers
         }
 
 
-        // POST api/customer
+        // POST api/customer  POST: http://localhost:port/api/customer
         [HttpPost]
         public void Post([FromBody]string value)
         {

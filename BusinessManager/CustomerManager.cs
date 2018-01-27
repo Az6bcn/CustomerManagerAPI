@@ -22,8 +22,8 @@ namespace BusinessManager
             return response;
         }
 
-        
-             public IEnumerable<Customer> GetCustomersAndOrder()
+
+        public IEnumerable<Customer> GetCustomersAndOrder()
         {
             var response = _unitOfWork.Customer.GetAllCustomersAndOrderRepo();
 

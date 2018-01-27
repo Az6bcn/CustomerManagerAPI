@@ -55,7 +55,7 @@ namespace BusinessManager
                 //call manager to create user in '[AspNetUsers] Table'
                 result = await _userManager.CreateAsync(appUser, model.Password);
             }
-            catch (Exception e)
+            catch
             {
 
                 throw new Exception("Duplicated User");
@@ -132,10 +132,10 @@ namespace BusinessManager
 
                 return isUserClaimsAddedSuccesfully.Succeeded == true ? true : false;
             }
-            catch (Exception e)
+            catch
             {
 
-                throw new Exception("The Claims could not be added", e);
+                throw new Exception("The Claims could not be added");
             }
 
             
