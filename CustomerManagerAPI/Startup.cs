@@ -36,7 +36,7 @@ namespace CustomerManagerAPI
         {
 
             // Inject my UnitOf Service
-            services.AddTransient<UnitOfWork, UnitOfWork>(); // donde declaran UnitOfWork ---> al usarlo invoke instance of RegisterManager
+            services.AddTransient<UnitOfWork, UnitOfWork>(); // donde declaran UnitOfWork
 
             //Inject my Repositories (Ascopped: creates just one instance of the repository, for every htttp request we create jst one instance)
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -57,6 +57,7 @@ namespace CustomerManagerAPI
             services.AddTransient<AccountManager, AccountManager>();
             services.AddTransient<OrderManager, OrderManager>();
             services.AddTransient<ProductManager, ProductManager>();
+            services.AddTransient<StoredProcedureRepository, StoredProcedureRepository>();
 
             // Inject IJwtFactory Service
             services.AddSingleton<IJWFactory, JWTFactory>(); // donde acceden/llaman/usan IJWTFactory ---> invoke instance of JWTFactory
@@ -191,3 +192,26 @@ namespace CustomerManagerAPI
         }
     }
 }
+
+
+
+/*
+ ASP.NET services can be configured with the following lifetimes:+
+
+Transient:
+
+Transient lifetime services are created each time they're requested. This lifetime works best for lightweight,
+stateless services.
+
+Scoped:
+
+Scoped lifetime services are created once per request.
+
+Singleton:
+
+Singleton lifetime services are created the first time they're requested
+
+
+
+Swagger URL: http://localhost:53800/swagger/
+     */

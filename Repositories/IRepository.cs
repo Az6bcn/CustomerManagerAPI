@@ -8,6 +8,7 @@ namespace Repositories
     public interface IRepository<TEntity> where TEntity : class
     {
         IEnumerable<TEntity> GetAll();
+        void addCustomerToDB(TEntity entity);
 
     }
 }

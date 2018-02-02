@@ -31,7 +31,10 @@ namespace Repositories
         }
 
       
-
+        public void addCustomerToDB(TEntity entity)
+        {
+             _dbEntity.Add(entity);
+        }
        
     }
 }

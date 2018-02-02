@@ -14,7 +14,7 @@ namespace CustomerManagerAPI.ActionFilter
         // method is called before a controller action is executed.
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            // base.OnActionExecuting(context);
+
             if (!context.ModelState.IsValid)
             {
                 // If model validation fails, it will return 400 (Bad Request). Won't get to execute the Action in the Controller.
