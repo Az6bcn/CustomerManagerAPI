@@ -46,13 +46,20 @@ namespace BusinessManager
         }
 
 
-        public async Task<IEnumerable<Customer>> addCustomerStoredProcedure(Customer customer)
+        public async Task<IEnumerable<Customer>> addCustomerStoredProcedure (Customer customer)
         {
             customer.Created = DateTime.Now;
 
             var response = await _storedProcedureRepository.AddCustomer(customer);
 
             return response; // return the Created user
+        }
+
+
+        public async Task<Customer> updateCustomerStoredProcedureAsync (Customer customer)
+        {
+            var response = await _storedProcedureRepository.updateCustomerStoredProcedureRepositoryAsync(customer);
+            return response;
         }
 
 

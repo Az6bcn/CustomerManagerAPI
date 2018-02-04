@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CustomerManagerAPI.Models
 {
@@ -8,6 +9,7 @@ namespace CustomerManagerAPI.Models
         public Supplier()
         {
             Product = new HashSet<Product>();
+            ApprovedByGeneralManager = false;
         }
 
         public int Id { get; set; }
@@ -20,5 +22,15 @@ namespace CustomerManagerAPI.Models
         public string Fax { get; set; }
 
         public ICollection<Product> Product { get; set; }
+        [Required]
+        public string CreatedByRole { get; set; }
+        [Required]
+        public string SourcePerson { get; set; }
+
+        public bool ApprovedByGeneralManager { get; set; }
+
+        public DateTime Deleted { get; set; }
+
+        public DateTime Updated { get; set; }
     }
 }

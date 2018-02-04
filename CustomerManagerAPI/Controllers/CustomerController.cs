@@ -7,6 +7,7 @@ using BusinessManager;
 using CustomerManagerAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using CustomerManagerAPI.ActionFilter;
+using Model.Models;
 
 namespace CustomerManagerAPI.Controllers
 {
@@ -95,9 +96,18 @@ namespace CustomerManagerAPI.Controllers
         }
 
         // PUT api/customer/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [Route("edit-customer"+"/"+"{id}")] // GET http://localhost:port/api/customer/edit-customer/id
+        [HttpPut]
+        [ValidateModel]
+        public async Task<IActionResult> Put (int id, [FromBody] Customer customerToEdit)
         {
+            if (customerToEdit == null) { return new BadRequestObjectResult(new Error { ErrorMessage = "Invalid Object to Update" }); };
+
+            if (id != customerToEdit.Id) { return new BadRequestObjectResult(new Error { ErrorMessage = "Object Id's don't match" }); };
+
+            var response = await _customerManager.updateCustomerStoredProcedureAsync(customerToEdit);
+
+            return new OkObjectResult(response);
         }
 
         // DELETE api/customer/5

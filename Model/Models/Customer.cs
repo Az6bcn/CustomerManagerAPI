@@ -9,6 +9,8 @@ namespace CustomerManagerAPI.Models
         public Customer()
         {
             Order = new HashSet<Order>();
+            ApprovedByGeneralManager = false;
+
         }
         
         public int Id { get; set; }
@@ -22,7 +24,18 @@ namespace CustomerManagerAPI.Models
         public string Country { get; set; }
         [Required]
         public string Phone { get; set; }
+        
         public DateTime Created { get; set; }
+        // [Required]
+        public string CreatedByRole { get; set; }
+        // [Required]
+        public string SourcePerson { get; set; }
+        
+        public bool? ApprovedByGeneralManager { get; set; }
+        
+        public DateTime? Deleted { get; set; }
+        
+        public DateTime? Updated { get; set; }
 
         public ICollection<Order> Order { get; set; }
     }
