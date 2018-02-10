@@ -92,11 +92,14 @@ namespace BusinessManager
         {
           var userIdentityClaims = await GetUserClaims(credentials);
 
+            var user = await _userManager.FindByNameAsync(credentials.Username);
+            var userAspNetID = await _userManager.GetUserIdAsync(user);
+
             // Serialize and return the response as JSON.
             var response = new
             {
                 // call JwtFactory to generate encoded Token.
-                auth_token = await Task.FromResult(_jwtFactory.GenerateEncodedToken(credentials.Username, userIdentityClaims)),
+                auth_token = await Task.FromResult(_jwtFactory.GenerateEncodedToken(credentials.Username, userIdentityClaims, userAspNetID)),
                 expires_in = (int)_jwtOptions.ValidFor.TotalSeconds
             };
 

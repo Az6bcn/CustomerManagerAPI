@@ -24,13 +24,14 @@ namespace AuthJWT.AuthJWT
 
 
 
-    public async Task<string> GenerateEncodedToken(string userName, IEnumerable<Claim> userIdentityClaims)
+    public async Task<string> GenerateEncodedToken(string userName, IEnumerable<Claim> userIdentityClaims, string aspNetID)
     {
             List<Claim> claims = new List<Claim>();
-    
+            claims.Add(new Claim(JwtRegisteredClaimNames.NameId, userName));
             claims.Add(new Claim(JwtRegisteredClaimNames.Sub, userName));
             claims.Add(new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()));
             claims.Add(new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64));
+            claims.Add(new Claim("aspNetID", aspNetID));
 
             // loop through the usersClaims
             foreach (var item in userIdentityClaims)

@@ -16,6 +16,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using UoW;
 using Repositories;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
+using Repositories.Services;
 
 namespace CustomerManagerAPI
 {
@@ -58,6 +60,9 @@ namespace CustomerManagerAPI
             services.AddTransient<OrderManager, OrderManager>();
             services.AddTransient<ProductManager, ProductManager>();
             services.AddTransient<StoredProcedureRepository, StoredProcedureRepository>();
+            services.AddTransient<IHttpContextService, HttpContextService>();
+            services.AddTransient<BasePerson, BasePerson>();
+            
 
             // Inject IJwtFactory Service
             services.AddSingleton<IJWFactory, JWTFactory>(); // donde acceden/llaman/usan IJWTFactory ---> invoke instance of JWTFactory
@@ -132,6 +137,8 @@ namespace CustomerManagerAPI
                 Only Identity with the stated claims will be Authorise to access the Controller, Action we apply this Policy.   
              */
 
+            // Inject HttpContextAccessor , to access the HttpContext, manipulate http request response etc
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             // Add service and create Policy with options
             services.AddCors(options =>
@@ -157,9 +164,15 @@ namespace CustomerManagerAPI
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 
-
+            
             services.AddMvc();
+            
         }
+
+
+
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

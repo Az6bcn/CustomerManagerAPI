@@ -8,6 +8,7 @@ using CustomerManagerAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using CustomerManagerAPI.ActionFilter;
 using Model.Models;
+using System.Diagnostics;
 
 namespace CustomerManagerAPI.Controllers
 {
@@ -16,7 +17,6 @@ namespace CustomerManagerAPI.Controllers
     public class CustomerController : Controller
     {
         private readonly CustomerManager _customerManager;
-
         public CustomerController(CustomerManager customerManager)
         {
             _customerManager = customerManager;

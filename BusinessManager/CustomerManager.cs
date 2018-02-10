@@ -1,7 +1,9 @@
 ﻿using CustomerManagerAPI.Models;
+using Model.Enumerations;
 using Repositories;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using UoW;
@@ -12,11 +14,26 @@ namespace BusinessManager
     {
         public readonly UnitOfWork _unitOfWork;
         public readonly StoredProcedureRepository _storedProcedureRepository;
+        private readonly BasePerson _basePerson;
+        public Guid UpdatedByPersonID { get; set; } // of person that creates
+        public Guid SourcePersonID { get; set; } // of person that update
+        public ManagerRolesEnum PersonRole { get; set; }
 
-        public CustomerManager(UnitOfWork unitOfWork, StoredProcedureRepository storedProcedureRepository )
+
+        public CustomerManager(UnitOfWork unitOfWork, StoredProcedureRepository storedProcedureRepository,
+            BasePerson basePerson)
         {
             _unitOfWork = unitOfWork;
             _storedProcedureRepository = storedProcedureRepository;
+            
+            _basePerson = basePerson;
+
+            UpdatedByPersonID = _basePerson.CurrentPersonID();
+            SourcePersonID = _basePerson.CurrentPersonID();
+            PersonRole = _basePerson.CurrentPersonRole();
+
+            Debug.WriteLine("****************--------> {0}, {1}", UpdatedByPersonID, PersonRole);
+
         }
 
         public IEnumerable<Customer> GetAllCustomer()
@@ -50,7 +67,7 @@ namespace BusinessManager
         {
             customer.Created = DateTime.Now;
 
-            var response = await _storedProcedureRepository.AddCustomer(customer);
+            var response = await _storedProcedureRepository.AddCustomer(customer, PersonRole, SourcePersonID);
 
             return response; // return the Created user
         }
@@ -58,10 +75,10 @@ namespace BusinessManager
 
         public async Task<Customer> updateCustomerStoredProcedureAsync (Customer customer)
         {
-            var response = await _storedProcedureRepository.updateCustomerStoredProcedureRepositoryAsync(customer);
+            var response = await _storedProcedureRepository.updateCustomerStoredProcedureRepositoryAsync(customer, UpdatedByPersonID);
             return response;
         }
 
 
-    }
+    } 
 }

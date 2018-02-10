@@ -9,7 +9,7 @@ namespace AuthJWT.AuthJWT
     public interface IJWFactory
     {
 
-        Task<string> GenerateEncodedToken(string userName, IEnumerable<Claim> userIdentityClaims);
+        Task<string> GenerateEncodedToken(string userName, IEnumerable<Claim> userIdentityClaims, string aspNetID);
         // ClaimsIdentity GenerateClaimsIdentity(string userName, string id);
     }
 }
