@@ -32,8 +32,6 @@ namespace BusinessManager
             SourcePersonID = _basePerson.CurrentPersonID();
             PersonRole = _basePerson.CurrentPersonRole();
 
-            Debug.WriteLine("****************--------> {0}, {1}", UpdatedByPersonID, PersonRole);
-
         }
 
         public IEnumerable<Customer> GetAllCustomer()
