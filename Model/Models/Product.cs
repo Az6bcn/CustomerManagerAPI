@@ -29,8 +29,8 @@ namespace CustomerManagerAPI.Models
 
         public bool ApprovedByGeneralManager { get; set; }
 
-        public DateTime Deleted { get; set; }
+        public DateTime? Deleted { get; set; }
 
-        public DateTime Updated { get; set; }
+        public DateTime? Updated { get; set; }
     }
 }

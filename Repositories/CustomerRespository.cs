@@ -26,6 +26,7 @@ namespace Repositories
         {
             var customersAndOrder = CustomerContextApp.Customer
                 .Include(cus => cus.Order)
+                .Where(customer => customer.Deleted == null)
                 .ToList();
             return customersAndOrder;
         }
